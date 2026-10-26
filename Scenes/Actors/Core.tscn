@@ -1,0 +1,21 @@
+[gd_scene format=3]
+[ext_resource type="Script" path="res://Scripts/Actor.cs" id="actor"]
+[ext_resource type="Script" path="res://Scripts/Components/VisualComponent.cs" id="VisualComponent"]
+[ext_resource type="Script" path="res://Scripts/Components/HealthComponent.cs" id="HealthComponent"]
+[sub_resource type="SphereShape3D" id="Body"]
+radius=1.4
+[node name="Core" type="CharacterBody3D" groups=["allies", "core", "actors"]]
+collision_layer=1
+collision_mask=3
+script=ExtResource("actor")
+MetalReward=12
+BuildCost=50
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape=SubResource("Body")
+[node name="VisualComponent" type="Node3D" parent="."]
+script=ExtResource("VisualComponent")
+Kind="core"
+Tint=Color(0.4, 0.7, 1, 1)
+[node name="HealthComponent" type="Node" parent="."]
+script=ExtResource("HealthComponent")
+MaxHealth=500.0

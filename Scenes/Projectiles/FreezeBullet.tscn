@@ -1,0 +1,22 @@
+[gd_scene load_steps=6 format=3]
+[ext_resource type="Script" path="res://Scripts/Projectile.cs" id="1"]
+[ext_resource type="Script" path="res://Scripts/Components/FreezeComponent.cs" id="2"]
+[ext_resource type="Script" path="res://Scripts/Components/VisualComponent.cs" id="3"]
+[sub_resource type="SphereShape3D" id="Shape"]
+radius=0.3
+[sub_resource type="StandardMaterial3D" id="Unused"]
+[node name="FreezeBullet" type="Node3D" groups=["projectiles"]]
+script=ExtResource("1")
+Speed=19.0
+[node name="VisualComponent" type="Node3D" parent="."]
+script=ExtResource("3")
+Kind="bullet"
+Tint=Color(0.5, 1, 0.65, 1)
+[node name="DamagingComponent" type="Area3D" parent="."]
+collision_layer=0
+collision_mask=2
+script=ExtResource("2")
+Damage=10.0
+TargetGroups=Array[StringName]([&"enemies"])
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DamagingComponent"]
+shape=SubResource("Shape")

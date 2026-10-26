@@ -1,0 +1,41 @@
+[gd_scene format=3]
+[ext_resource type="Script" path="res://Scripts/Actor.cs" id="actor"]
+[ext_resource type="Script" path="res://Scripts/Components/EnemyScalingComponent.cs" id="scaling"]
+[ext_resource type="Script" path="res://Scripts/Components/VisualComponent.cs" id="VisualComponent"]
+[ext_resource type="Script" path="res://Scripts/Components/HealthComponent.cs" id="HealthComponent"]
+[ext_resource type="Script" path="res://Scripts/Components/MoveComponent.cs" id="MoveComponent"]
+[ext_resource type="Script" path="res://Scripts/Components/ShootComponent.cs" id="ShootComponent"]
+[ext_resource type="Script" path="res://Scripts/Components/EnemyBrainComponent.cs" id="EnemyBrainComponent"]
+[ext_resource type="PackedScene" path="res://Scenes/Projectiles/EnemyBullet.tscn" id="bullet"]
+[sub_resource type="SphereShape3D" id="Body"]
+radius=0.65
+[node name="Shooter" type="CharacterBody3D" groups=["enemies", "actors"]]
+collision_layer=2
+collision_mask=3
+script=ExtResource("actor")
+MetalReward=20
+BuildCost=50
+[node name="EnemyScalingComponent" type="Node" parent="."]
+script=ExtResource("scaling")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape=SubResource("Body")
+[node name="VisualComponent" type="Node3D" parent="."]
+script=ExtResource("VisualComponent")
+Kind="shooter"
+Tint=Color(1, 0.25, 0.18, 1)
+[node name="HealthComponent" type="Node" parent="."]
+script=ExtResource("HealthComponent")
+MaxHealth=90.0
+[node name="MoveComponent" type="Node" parent="."]
+script=ExtResource("MoveComponent")
+Speed=1.8
+[node name="ShootComponent" type="Node" parent="."]
+script=ExtResource("ShootComponent")
+ProjectileScene=ExtResource("bullet")
+Automatic=true
+TargetGroup=&"allies"
+FireInterval=1.4
+Range=14.0
+[node name="EnemyBrainComponent" type="Node" parent="."]
+script=ExtResource("EnemyBrainComponent")
+StopDistance=12.5

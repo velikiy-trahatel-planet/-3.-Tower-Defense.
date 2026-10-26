@@ -1,0 +1,30 @@
+[gd_scene format=3]
+[ext_resource type="Script" path="res://Scripts/Actor.cs" id="actor"]
+[ext_resource type="Script" path="res://Scripts/Components/VisualComponent.cs" id="VisualComponent"]
+[ext_resource type="Script" path="res://Scripts/Components/HealthComponent.cs" id="HealthComponent"]
+[ext_resource type="Script" path="res://Scripts/Components/ShootComponent.cs" id="ShootComponent"]
+[ext_resource type="PackedScene" path="res://Scenes/Projectiles/FreezeBullet.tscn" id="bullet"]
+[sub_resource type="SphereShape3D" id="Body"]
+radius=0.65
+[node name="FreezeTower" type="CharacterBody3D" groups=["allies", "towers", "actors"]]
+collision_layer=1
+collision_mask=3
+script=ExtResource("actor")
+MetalReward=25
+BuildCost=70
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape=SubResource("Body")
+[node name="VisualComponent" type="Node3D" parent="."]
+script=ExtResource("VisualComponent")
+Kind="freeze"
+Tint=Color(0.3, 1, 0.75, 1)
+[node name="HealthComponent" type="Node" parent="."]
+script=ExtResource("HealthComponent")
+MaxHealth=120.0
+[node name="ShootComponent" type="Node" parent="."]
+script=ExtResource("ShootComponent")
+ProjectileScene=ExtResource("bullet")
+Automatic=true
+TargetGroup=&"enemies"
+FireInterval=0.75
+Range=13.0

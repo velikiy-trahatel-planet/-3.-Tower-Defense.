@@ -1,0 +1,44 @@
+[gd_scene format=3]
+[ext_resource type="Script" path="res://Scripts/Actor.cs" id="actor"]
+[ext_resource type="Script" path="res://Scripts/Components/VisualComponent.cs" id="VisualComponent"]
+[ext_resource type="Script" path="res://Scripts/Components/HealthComponent.cs" id="HealthComponent"]
+[ext_resource type="Script" path="res://Scripts/Components/MoveComponent.cs" id="MoveComponent"]
+[ext_resource type="Script" path="res://Scripts/Components/ShootComponent.cs" id="ShootComponent"]
+[ext_resource type="Script" path="res://Scripts/Components/PlayerControllerComponent.cs" id="PlayerControllerComponent"]
+[ext_resource type="Script" path="res://Scripts/Components/BuildComponent.cs" id="BuildComponent"]
+[ext_resource type="PackedScene" path="res://Scenes/Projectiles/StandardBullet.tscn" id="bullet"]
+[ext_resource type="PackedScene" path="res://Scenes/Actors/StandardTower.tscn" id="tower0"]
+[ext_resource type="PackedScene" path="res://Scenes/Actors/ExplosiveTower.tscn" id="tower1"]
+[ext_resource type="PackedScene" path="res://Scenes/Actors/FreezeTower.tscn" id="tower2"]
+[sub_resource type="SphereShape3D" id="Body"]
+radius=0.65
+[node name="Player" type="CharacterBody3D" groups=["allies", "player", "actors"]]
+collision_layer=1
+collision_mask=3
+script=ExtResource("actor")
+MetalReward=12
+BuildCost=50
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape=SubResource("Body")
+[node name="VisualComponent" type="Node3D" parent="."]
+script=ExtResource("VisualComponent")
+Kind="player"
+Tint=Color(0.2, 0.85, 0.4, 1)
+[node name="HealthComponent" type="Node" parent="."]
+script=ExtResource("HealthComponent")
+MaxHealth=120.0
+[node name="MoveComponent" type="Node" parent="."]
+script=ExtResource("MoveComponent")
+Speed=6.5
+[node name="ShootComponent" type="Node" parent="."]
+script=ExtResource("ShootComponent")
+ProjectileScene=ExtResource("bullet")
+Automatic=false
+TargetGroup=&"enemies"
+FireInterval=0.22
+Range=13.0
+[node name="PlayerControllerComponent" type="Node" parent="."]
+script=ExtResource("PlayerControllerComponent")
+[node name="BuildComponent" type="Node" parent="."]
+script=ExtResource("BuildComponent")
+TowerScenes=Array[PackedScene]([ExtResource("tower0"), ExtResource("tower1"), ExtResource("tower2")])

@@ -1,0 +1,45 @@
+[gd_scene format=3]
+[ext_resource type="Script" path="res://Scripts/Actor.cs" id="actor"]
+[ext_resource type="Script" path="res://Scripts/Components/EnemyScalingComponent.cs" id="scaling"]
+[ext_resource type="Script" path="res://Scripts/Components/VisualComponent.cs" id="VisualComponent"]
+[ext_resource type="Script" path="res://Scripts/Components/HealthComponent.cs" id="HealthComponent"]
+[ext_resource type="Script" path="res://Scripts/Components/MoveComponent.cs" id="MoveComponent"]
+[ext_resource type="Script" path="res://Scripts/Components/EnemyBrainComponent.cs" id="EnemyBrainComponent"]
+[ext_resource type="Script" path="res://Scripts/Components/DamagingComponent.cs" id="DamagingComponent"]
+[sub_resource type="SphereShape3D" id="Body"]
+radius=0.65
+[sub_resource type="SphereShape3D" id="Contact"]
+radius=1.15
+[node name="Crawler" type="CharacterBody3D" groups=["enemies", "actors"]]
+collision_layer=2
+collision_mask=3
+script=ExtResource("actor")
+MetalReward=15
+BuildCost=50
+[node name="EnemyScalingComponent" type="Node" parent="."]
+script=ExtResource("scaling")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape=SubResource("Body")
+[node name="VisualComponent" type="Node3D" parent="."]
+script=ExtResource("VisualComponent")
+Kind="crawler"
+Tint=Color(1, 0.25, 0.18, 1)
+[node name="HealthComponent" type="Node" parent="."]
+script=ExtResource("HealthComponent")
+MaxHealth=70.0
+[node name="MoveComponent" type="Node" parent="."]
+script=ExtResource("MoveComponent")
+Speed=2.6
+[node name="EnemyBrainComponent" type="Node" parent="."]
+script=ExtResource("EnemyBrainComponent")
+StopDistance=1.1
+[node name="DamagingComponent" type="Area3D" parent="."]
+script=ExtResource("DamagingComponent")
+collision_layer=0
+collision_mask=1
+TargetGroups=Array[StringName]([&"allies"])
+Damage=10.0
+OneShot=false
+DestroyOwner=false
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DamagingComponent"]
+shape=SubResource("Contact")

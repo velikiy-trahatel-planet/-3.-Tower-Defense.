@@ -1,0 +1,55 @@
+[gd_scene format=3]
+[ext_resource type="Script" path="res://Scripts/GameManager.cs" id="manager"]
+[ext_resource type="Script" path="res://Scripts/Hud.cs" id="hud"]
+[ext_resource type="PackedScene" path="res://Scenes/Actors/Player.tscn" id="player"]
+[ext_resource type="PackedScene" path="res://Scenes/Actors/Core.tscn" id="core"]
+[ext_resource type="PackedScene" path="res://Scenes/Actors/StandardTower.tscn" id="tower1"]
+[ext_resource type="PackedScene" path="res://Scenes/Actors/ExplosiveTower.tscn" id="tower2"]
+[ext_resource type="PackedScene" path="res://Scenes/Actors/FreezeTower.tscn" id="tower3"]
+[ext_resource type="PackedScene" path="res://Scenes/Actors/Crawler.tscn" id="crawler"]
+[ext_resource type="PackedScene" path="res://Scenes/Actors/Shooter.tscn" id="shooter"]
+[sub_resource type="Environment" id="Environment"]
+background_mode=1
+background_color=Color(0.025, 0.04, 0.07, 1)
+ambient_light_source=3
+ambient_light_color=Color(0.65, 0.8, 1, 1)
+ambient_light_energy=0.7
+[sub_resource type="StandardMaterial3D" id="GroundMaterial"]
+albedo_color=Color(0.055, 0.09, 0.13, 1)
+[sub_resource type="BoxMesh" id="Ground"]
+size=Vector3(44, 0.3, 44)
+material=SubResource("GroundMaterial")
+[node name="GameManager" type="Node3D"]
+script=ExtResource("manager")
+EnemyScenes=Array[PackedScene]([ExtResource("crawler"), ExtResource("shooter")])
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment=SubResource("Environment")
+[node name="Sun" type="DirectionalLight3D" parent="."]
+rotation_degrees=Vector3(-55, -25, 0)
+light_energy=1.2
+shadow_enabled=true
+[node name="Camera3D" type="Camera3D" parent="."]
+position=Vector3(0, 34, 25)
+rotation_degrees=Vector3(-53.7, 0, 0)
+projection=1
+size=58.0
+current=true
+[node name="Ground" type="MeshInstance3D" parent="."]
+position=Vector3(0, -0.2, 0)
+mesh=SubResource("Ground")
+[node name="Core" parent="." instance=ExtResource("core")]
+position=Vector3(0, 0.7, 0)
+[node name="Player" parent="." instance=ExtResource("player")]
+position=Vector3(0, 0.7, 5)
+[node name="StandardTower" parent="." instance=ExtResource("tower1")]
+position=Vector3(-5, 0.7, -3)
+[node name="ExplosiveTower" parent="." instance=ExtResource("tower2")]
+position=Vector3(5, 0.7, -3)
+[node name="FreezeTower" parent="." instance=ExtResource("tower3")]
+position=Vector3(0, 0.7, -6)
+[node name="Crawler" parent="." instance=ExtResource("crawler")]
+position=Vector3(-15, 0.7, -12)
+[node name="Shooter" parent="." instance=ExtResource("shooter")]
+position=Vector3(15, 0.7, -12)
+[node name="HUD" type="CanvasLayer" parent="."]
+script=ExtResource("hud")
