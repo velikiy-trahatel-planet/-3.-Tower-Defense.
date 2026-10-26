@@ -1,0 +1,22 @@
+---
+config:
+  theme: neutral
+  htmlLabels: false
+---
+classDiagram
+    direction LR
+    Node <|-- HealthComponent
+    Node <|-- MoveComponent
+    Node <|-- ShootComponent
+    Node <|-- BuildComponent
+    Node <|-- EnemyBrainComponent
+    Node <|-- EnemyScalingComponent
+    Node <|-- PlayerControllerComponent
+    Node3D <|-- VisualComponent
+    Node3D <|-- Projectile
+    Node3D <|-- GameManager
+    CharacterBody3D <|-- Actor
+    Area3D <|-- DamagingComponent
+    DamagingComponent <|-- ExplosionComponent
+    DamagingComponent <|-- FreezeComponent
+    CanvasLayer <|-- Hud

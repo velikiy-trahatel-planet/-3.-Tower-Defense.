@@ -83,41 +83,23 @@ Scenes/Projectiles/
 
 ## UML: наследование и композиция
 
-```mermaid
-classDiagram
-    Node <|-- HealthComponent
-    Node <|-- MoveComponent
-    Node <|-- ShootComponent
-    Node <|-- BuildComponent
-    Node <|-- EnemyBrainComponent
-    Node <|-- EnemyScalingComponent
-    Node <|-- PlayerControllerComponent
-    Node3D <|-- VisualComponent
-    Node3D <|-- Projectile
-    Node3D <|-- GameManager
-    CharacterBody3D <|-- Actor
-    Area3D <|-- DamagingComponent
-    DamagingComponent <|-- ExplosionComponent
-    DamagingComponent <|-- FreezeComponent
-    CanvasLayer <|-- Hud
-    Actor *-- HealthComponent
-    Actor *-- VisualComponent
-    Actor *-- MoveComponent : игрок и враги
-    Actor *-- ShootComponent : игрок, башни, стрелки
-    Actor *-- DamagingComponent : Crawler
-    Actor *-- BuildComponent : Player
-    Actor *-- PlayerControllerComponent : Player
-    Actor *-- EnemyBrainComponent : враги
-    Actor *-- EnemyScalingComponent : рост силы по волнам
-    Projectile *-- DamagingComponent
-    Projectile *-- VisualComponent
-    ShootComponent ..> Projectile : PackedScene.Instantiate
-    DamagingComponent ..> HealthComponent : TakeDamage
-    FreezeComponent ..> MoveComponent : ApplySlow
-    ExplosionComponent ..> DamagingComponent : область взрыва
-    GameManager o-- Actor : учёт жизни и наград
-    BuildComponent ..> GameManager : TrySpend
-    Hud ..> GameManager
+Диаграммы сохранены как PNG и отображаются без запуска Mermaid в браузере. Нажмите на изображение, чтобы открыть его в полном размере.
+
+**Наследование.** Полый треугольник указывает на базовый класс.
+
+![UML: наследование классов Godot и компонентов урона](docs/inheritance.png)
+
+**Композиция и взаимодействие.** Закрашенный ромб обозначает дочерний узел, пустой — учёт объектов менеджером; пунктирная стрелка — вызов или создание объекта.
+
+![UML: композиция компонентов и взаимодействие классов](docs/composition.png)
+
+Редактируемые исходники: [наследование](docs/inheritance.mmd), [композиция](docs/composition.mmd).
+
+Для обновления изображений после изменения исходников:
+
+```powershell
+npx.cmd --yes --package @mermaid-js/mermaid-cli mmdc -i docs/inheritance.mmd -o docs/inheritance.png -b white -s 2
+npx.cmd --yes --package @mermaid-js/mermaid-cli mmdc -i docs/composition.mmd -o docs/composition.png -b white -s 2
 ```
 
 Башни и враги не образуют иерархию наследования. Один Actor получает разные дочерние узлы. Например, замена `ProjectileScene` у ShootComponent меняет способ нанесения урона без изменения самого оружия. Один и тот же DamagingComponent применён к обычной пуле, красной пуле, взрывной области и контактной зоне Crawler. Наследование используется только для двух специализированных компонентов урона, как требует лабораторная.

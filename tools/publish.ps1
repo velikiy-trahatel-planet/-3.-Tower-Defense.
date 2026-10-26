@@ -11,7 +11,7 @@ function Invoke-Git {
 
 # Clone first to retain the existing remote history and any unrelated files.
 Invoke-Git -Arguments @('clone', '--branch', 'main', $Repository, $stagingRoot)
-$items = @('Scenes', 'Scripts', 'Tests', 'tools', 'README.md', 'TowerDefense.csproj', 'project.godot', 'icon.svg', '.editorconfig', '.gitattributes', '.gitignore')
+$items = @('Scenes', 'Scripts', 'Tests', 'tools', 'docs', 'README.md', 'TowerDefense.csproj', 'project.godot', 'icon.svg', '.editorconfig', '.gitattributes', '.gitignore')
 foreach ($item in $items) {
     Copy-Item -LiteralPath (Join-Path $sourceRoot $item) -Destination $stagingRoot -Recurse -Force
 }

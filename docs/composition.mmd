@@ -1,0 +1,25 @@
+---
+config:
+  theme: neutral
+  htmlLabels: false
+---
+classDiagram
+    direction TB
+    Actor *-- HealthComponent
+    Actor *-- VisualComponent
+    Actor *-- MoveComponent : игрок и враги
+    Actor *-- ShootComponent : игрок, башни, стрелки
+    Actor *-- DamagingComponent : Crawler
+    Actor *-- BuildComponent : Player
+    Actor *-- PlayerControllerComponent : Player
+    Actor *-- EnemyBrainComponent : враги
+    Actor *-- EnemyScalingComponent : рост силы по волнам
+    Projectile *-- DamagingComponent
+    Projectile *-- VisualComponent
+    ShootComponent ..> Projectile : PackedScene.Instantiate
+    DamagingComponent ..> HealthComponent : TakeDamage
+    FreezeComponent ..> MoveComponent : ApplySlow
+    ExplosionComponent ..> DamagingComponent : область взрыва
+    GameManager o-- Actor : учёт жизни и наград
+    BuildComponent ..> GameManager : TrySpend
+    Hud ..> GameManager
